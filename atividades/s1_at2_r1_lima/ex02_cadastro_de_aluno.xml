@@ -1,0 +1,16 @@
+<!--Exercício 2: Cadastro de Aluno-->
+<!--Analise o Código-->
+<!--<?xml version="1.0" encoding="UTF-8"?>
+
+<aluno matricula=202501 curso="Informática">
+<nome>João Silva</nome>
+<idade=20></idade>
+</aluno>-->
+
+<!--Código Corrigido-->
+<?xml version="1.0" encoding="UTF-8"?>
+
+    <aluno matricula="202501" curso="Informática">
+        <nome>João Silva</nome>
+        <idade>20</idade>
+    </aluno>

@@ -1,0 +1,33 @@
+<!--Exercício 6: Sistema Escolar (Desafio)-->
+<!--Analise o Código-->
+<!--<?xml version='1.0" encoding="UTF-8"?>
+
+<escola>
+
+<aluno matricula='202501" curso=Informática>
+
+<nome>Lucas & Ana</nome>
+
+<disciplinas>
+
+<disciplina>Banco de Dados
+
+<disciplina>Lógica de Programação</disciplina>
+
+</disciplinas>
+
+</aluno>
+
+</escola>-->
+
+<!--Código Corrigido-->
+<?xml version="1.0" encoding="UTF-8"?>
+    <escola>
+        <aluno matricula="202501" curso="Informática">
+            <nome>Lucas &amp; Ana</nome>
+            <disciplinas>
+                <disciplina>Banco de Dados</disciplina>
+                <disciplina>Lógica de Programação</disciplina>
+            </disciplinas>
+        </aluno>
+    </escola>
