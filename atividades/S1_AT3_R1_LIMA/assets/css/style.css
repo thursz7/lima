@@ -1,0 +1,9 @@
+body {
+    background-color: lightblue;
+    font-family: cursive;
+}
+
+.titulo_h1 {
+    text-align: center;
+    color: black;
+}
