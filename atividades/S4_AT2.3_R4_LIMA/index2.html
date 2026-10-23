@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuração de Hardware</title>
+</head>
+
+<body>
+    <!-- Grupo 1: Dados do Cliente -->
+            <h2>Dados do Cliente</h2>
+    <fieldset>
+
+            <p>
+                <label for="nome">Nome completo:*</label><br>
+                <input type="text" id="nome" name="nome"
+                    placeholder="Digite seu nome" required>
+            </p>
+
+            <p>
+                <label for="email">E-mail:*</label><br>
+                <input type="email" id="email" name="email"
+                    placeholder="seuemail@exemplo.com" required>
+            </p>
+
+            <p>
+                <label for="telefone">Telefone:</label><br>
+                <input type="tel" id="telefone" name="telefone"
+                    placeholder="(00) 00000-0000">
+            </p>
+        </fieldset>
+
+        <br>
+    
+    <h2>Configuração de Hardware</h2>
+
+    <hr>
+
+    <!-- Configuração de Hardware -->
+     <fieldset>
+        <legend>Escolha a placa de vídeo principal</legend>
+        <select name="gpu" id="gpu">
+            <option value="gtx1660">NVIDIA GeForce GTX 1660 Ti</option>
+            <option value="rtx3060">NVIDIA GeForce RTX 3060</option>
+            <option value="gtx1650">NVIDIA GeForce GTX 1650</option>
+        </select>
+        <p>
+            <strong>Objetivo de qualquer coisa</strong>
+            <input type="radio" name="objetivo" id="jogos" value="jogos" checked>
+            <label for="objetivo">Objetivo do computador</label></br>
+
+            <input type="radio" name="streaming" id="streaming" value="streaming">
+            <label for="objetivo">Live criação</label></br>
+
+            <input type="radio" name="objetivo" id="trabalho" value="trabalho">
+            <label for="objetivo">edição de vídeo</label></br>
+        </p>
+     </fieldset>
