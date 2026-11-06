@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PixelGearStore | Loja de Hardware Gamer</title>
+  <meta name="description" content="PixelGearStore é a loja premium de hardware gamer com periféricos, PCs e setups de alto desempenho." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #070b12;
+      --bg-soft: #0f1725;
+      --panel: rgba(15, 23, 37, 0.84);
+      --panel-strong: #121d2d;
+      --ink: #edf6ff;
+      --muted: #9db3c8;
+      --line: rgba(255,255,255,0.08);
+      --cyan: #00f2fe;
+      --cyan-strong: #4de6ff;
+      --purple: #8f5bff;
+      --purple-strong: #b076ff;
+      --green: #53ffb1;
+      --orange: #ffb454;
+      --danger: #ff5b5b;
+      --success: #5ce0a1;
+      --shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --container: 1200px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(0, 242, 254, 0.09), transparent 20%),
+        radial-gradient(circle at 80% 35%, rgba(143, 91, 255, 0.12), transparent 20%),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    button { cursor: pointer; }
+    .icon-btn, .menu-toggle, .carousel-btn, .close-btn, .mini-btn, .tab-btn, .detail-tab, .account-tab, .chip, .wishlist-btn, .btn, .checkout-btn { -webkit-tap-highlight-color: transparent; }
+    .container { width: min(var(--container), calc(100% - 32px)); margin: 0 auto; }
+    .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.72rem; font-weight: 700; color: var(--cyan);
+    }
+    .eyebrow::before {
+      content: ""; display: block; width: 30px; height: 1px; background: currentColor;
+    }
+
+    h1, h2, h3, h4 { margin: 0; font-weight: 700; font-family: 'Orbitron', sans-serif; }
+    p { margin: 0; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 50px; padding: 0 24px; border-radius: 999px; border: 1px solid transparent;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; flex-shrink: 0;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 35px rgba(0,0,0,0.18); }
+    .btn.primary {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      color: #071018; box-shadow: 0 15px 30px rgba(0,242,254,0.25);
+    }
+    .btn.secondary {
+      background: rgba(255,255,255,0.03); color: var(--ink); border-color: var(--line);
+    }
+    .btn.ghost {
+      background: transparent; border-color: var(--line); color: var(--ink);
+    }
+
+    .header {
+      position: sticky; top: 0; z-index: 50; background: rgba(7,11,18,0.8);
+      backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .topbar {
+      background: linear-gradient(90deg, rgba(0,242,254,0.12), rgba(143,91,255,0.1));
+      color: rgba(237,246,255,0.82); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 9px 0;
+    }
+    .topbar .container { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 88px; }
+    .brand {
+      display: flex; align-items: center; gap: 12px; min-width: 200px;
+      font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; font-size: 0.78rem;
+    }
+    .brand-mark {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #dffcff 0%, var(--cyan) 30%, #0d1b29 70%);
+      border: 1px solid rgba(255,255,255,0.3);
+      position: relative; box-shadow: inset 0 0 16px rgba(255,255,255,0.2);
+    }
+    .brand-mark::before {
+      content: "P"; position:absolute; inset:0; display:grid; place-items:center;
+      font-size: 1.25rem; font-family: 'Orbitron', sans-serif; color: rgba(7,11,18,0.9);
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+    .nav-links a {
+      color: var(--muted); font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; position: relative;
+    }
+    .nav-links a::after {
+      content: ""; position:absolute; left:0; right:0; bottom:-8px; height:2px; border-radius:30px; background: linear-gradient(90deg, var(--cyan), var(--purple));
+      transform: scaleX(0); transform-origin:center; transition: transform 0.25s ease;
+    }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+
+    .nav-tools { display:flex; align-items:center; gap:12px; margin-left:auto; }
+    .search { position: relative; width:min(360px, 32vw); min-width:180px; }
+    .search input {
+      width:100%; min-height:46px; padding:0 44px 0 16px; border-radius:999px; border:1px solid var(--line);
+      background: rgba(255,255,255,0.04); color: var(--ink); outline:none;
+    }
+    .search input:focus { border-color: rgba(0,242,254,0.6); box-shadow: 0 0 0 4px rgba(0,242,254,0.08); }
+    .search .search-icon { position:absolute; right:16px; top:50%; transform:translateY(-50%); font-size:1.1rem; opacity:0.7; }
+
+    .icon-btn {
+      position: relative; display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px;
+      border-radius:50%; background: rgba(255,255,255,0.04); border:1px solid var(--line); color:var(--ink);
+      transition: all 0.25s ease;
+    }
+    .icon-btn:hover { border-color: rgba(0,242,254,0.4); box-shadow: 0 10px 25px rgba(0,0,0,0.18); }
+    .icon-btn .badge {
+      position:absolute; right:-2px; top:-2px; min-width:18px; height:18px; padding:0 5px; display:grid; place-items:center;
+      border-radius:999px; background: linear-gradient(135deg, var(--cyan), var(--purple)); color:#061018; font-size:0.62rem; font-weight:800;
+    }
+
+    .menu-toggle { display: none; width:42px; height:42px; border-radius:50%; border:1px solid var(--line); background: rgba(255,255,255,0.04); color: var(--ink); }
+
+    .section { padding: 92px 0; }
+
+    .hero { position:relative; overflow:hidden; padding: 52px 0 24px; }
+    .hero::before {
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background: radial-gradient(circle at 15% 25%, rgba(0,242,254,0.12), transparent 42%), radial-gradient(circle at 80% 35%, rgba(143,91,255,0.12), transparent 36%);
+    }
+    .hero-inner {
+      display:grid; grid-template-columns: 1.1fr 0.9fr; gap:44px; align-items:center; position:relative; z-index:1;
+    }
+    .hero-copy { max-width:620px; }
+    .hero-copy h1 {
+      font-size: clamp(3.2rem, 6vw, 5.5rem); line-height:0.9; margin-top:18px; margin-bottom:18px; letter-spacing:-0.06em;
+    }
+    .hero-copy p { color: var(--muted); font-size: 1.08rem; max-width:560px; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:14px; margin-top:28px; }
+    .hero-meta { display:flex; gap:26px; flex-wrap:wrap; margin-top:30px; }
+    .hero-stat { min-width:120px; padding-top:12px; border-top:1px solid var(--line); }
+    .hero-stat strong { display:block; font-size:1.6rem; font-family:'Orbitron', sans-serif; }
+    .hero-stat span { color: var(--muted); font-size:0.82rem; text-transform: uppercase; letter-spacing:0.15em; }
+
+    .hero-visual { position:relative; min-height:560px; display:grid; place-items:center; }
+    .visual-stage {
+      position:relative; width:min(100%, 520px); height:560px; border-radius:34px;
+      background: linear-gradient(170deg, rgba(255,255,255,0.04), rgba(14,22,34,0.96));
+      border:1px solid rgba(255,255,255,0.08); box-shadow:var(--shadow); overflow:hidden;
+    }
+    .visual-stage::before {
+      content:""; position:absolute; width:380px; height:380px; right:-110px; top:-40px; border-radius:50%;
+      background: radial-gradient(circle, rgba(0,242,254,0.14), rgba(0,242,254,0));
+    }
+    .visual-stage::after {
+      content:""; position:absolute; width:300px; height:300px; left:-80px; bottom:-40px; border-radius:50%;
+      background: radial-gradient(circle, rgba(143,91,255,0.14), rgba(143,91,255,0));
+    }
+
+    .gaming-card {
+      position:absolute; right:36px; bottom:42px; width:260px; background: rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08); backdrop-filter:blur(10px); border-radius:22px; padding:18px; box-shadow: var(--shadow);
+    }
+    .gaming-card .mini-label { display:inline-block; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.15em; color:var(--cyan); margin-bottom:12px; }
+    .gaming-card h3 { font-size:2.1rem; line-height:0.95; margin-bottom:10px; }
+    .gaming-card .price { display:block; font-weight:700; font-size:1.55rem; margin-bottom:14px; color: var(--cyan); }
+    .gaming-card img { width:100%; height:220px; object-fit:cover; border-radius:16px; }
+
+    .hero-product {
+      position:absolute; left:52px; top:54px; width:280px; height:390px; border-radius:28px; overflow:hidden;
+      box-shadow: 0 25px 45px rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.08); background:#0d1723;
+    }
+    .hero-product img { width:100%; height:100%; object-fit:cover; }
+    .floating-badge {
+      position:absolute; left:30px; bottom:28px; background: rgba(10,15,20,0.9); color: #fff; border:1px solid rgba(0,242,254,0.3);
+      border-radius:16px; padding:12px 16px; font-size:0.8rem; letter-spacing:0.08em; text-transform:uppercase; box-shadow: 0 18px 30px rgba(0,0,0,0.2);
+    }
+
+    .campaign-strip { padding: 24px 0 8px; }
+    .campaign-carousel { position:relative; overflow:hidden; border-radius:26px; background: linear-gradient(135deg, #0b1621, #111827 45%, #1d1b4b 100%); box-shadow: var(--shadow); }
+    .carousel-track { display:flex; transition: transform 0.45s ease; }
+    .campaign-slide { min-width:100%; display:grid; grid-template-columns:1.15fr 0.85fr; align-items:center; gap:22px; padding:32px 42px; color:#fff; }
+    .campaign-slide .label { display:inline-block; font-size:0.7rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.8); margin-bottom:12px; }
+    .campaign-slide h3 { font-size: clamp(2.3rem, 3vw, 3.5rem); line-height:0.9; margin-bottom:12px; }
+    .campaign-slide p { color: rgba(255,255,255,0.75); margin-bottom:20px; max-width:520px; }
+    .campaign-slide img { width:100%; height:260px; object-fit:cover; border-radius:18px; border:1px solid rgba(255,255,255,0.12); }
+    .carousel-controls { position:absolute; right:28px; bottom:22px; display:flex; gap:10px; z-index:2; }
+    .carousel-btn {
+      width:42px; height:42px; border-radius:50%; border:1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); color:#fff; font-size:1.1rem;
+    }
+
+    .brands-bar { padding-top: 40px; }
+    .brand-list { display:grid; grid-template-columns:repeat(6, minmax(0,1fr)); gap:16px; align-items:center; }
+    .brand-item {
+      min-height:72px; display:grid; place-items:center; border-radius:18px; border:1px solid var(--line); background: rgba(255,255,255,0.02);
+      color: var(--muted); letter-spacing:0.2em; text-transform:uppercase; font-weight:700; font-size:0.7rem;
+    }
+
+    .section-head { display:flex; justify-content:space-between; align-items:end; gap:18px; margin-bottom:26px; }
+    .section-head h2 { font-size: clamp(2.5rem, 4vw, 3.5rem); line-height:0.96; }
+    .section-head .link { font-size:0.78rem; text-transform:uppercase; letter-spacing:0.13em; color: var(--muted); border-bottom:1px solid var(--line); padding-bottom:4px; }
+
+    .feature-grid { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:18px; }
+    .feature-card {
+      background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:20px; padding:22px 18px; box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    }
+    .feature-card .icon {
+      width:52px; height:52px; border-radius:16px; display:grid; place-items:center; margin-bottom:14px;
+      background: linear-gradient(135deg, rgba(0,242,254,0.18), rgba(143,91,255,0.18)); color: var(--cyan); font-size:1.45rem;
+    }
+    .feature-card h3 { font-size:1.7rem; margin-bottom:6px; }
+    .feature-card p { color: var(--muted); font-size:0.92rem; }
+
+    .shop-shell {
+      background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:30px; padding:20px; box-shadow:var(--shadow);
+    }
+    .shop-toolbar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin-bottom:18px; }
+    .tab-list { display:flex; flex-wrap:wrap; gap:10px; }
+    .tab-btn {
+      min-height:42px; padding:0 18px; border-radius:999px; border:1px solid var(--line); background: rgba(255,255,255,0.03); color:var(--muted); font-weight:700;
+    }
+    .tab-btn.active { background: linear-gradient(135deg, var(--cyan), var(--purple)); color:#061018; border-color: transparent; }
+    .filter-group { display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+    .filter-group select {
+      min-height:42px; min-width:150px; border-radius:999px; border:1px solid var(--line); padding:0 16px; background: rgba(255,255,255,0.03); color:var(--ink);
+    }
+    .results-count { margin:9px 4px 18px; color:var(--muted); font-size:0.82rem; letter-spacing:0.06em; text-transform:uppercase; }
+    .product-grid { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:18px; }
+
+    .product-card {
+      position:relative; display:flex; flex-direction:column; background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:22px; overflow:hidden;
+      box-shadow:0 12px 24px rgba(0,0,0,0.08); transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease; min-height: 100%;
+    }
+    .product-card:hover { transform:translateY(-4px); box-shadow:0 22px 28px rgba(0,0,0,0.12); border-color: rgba(0,242,254,0.35); }
+    .product-media { position:relative; overflow:hidden; height:280px; background: linear-gradient(145deg, rgba(10,17,25,0.9), rgba(20,31,46,0.9)); }
+    .product-media img { width:100%; height:100%; object-fit:cover; object-position:center; transition:transform 0.35s ease; background: linear-gradient(135deg, rgba(0,242,254,0.12), rgba(143,91,255,0.12)); }
+    .product-card:hover .product-media img { transform: scale(1.04); }
+    .product-body { display:flex; flex:1; flex-direction:column; gap:10px; padding:18px 18px 16px; }
+    .meta-row { display:flex; justify-content:space-between; align-items:center; gap:10px; font-size:0.74rem; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
+    .product-card h3 { font-size: clamp(1.1rem, 1.5vw, 1.55rem); line-height:1.2; letter-spacing:-0.04em; margin:0; }
+    .rating-row { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:0.84rem; flex-wrap: wrap; }
+    .stars { color: var(--orange); letter-spacing:0.12em; font-size:0.82rem; }
+    .product-footer { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:auto; flex-wrap:wrap; }
+    .price-wrap { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+    .price-wrap strong { font-size:1.36rem; font-family:'Orbitron', sans-serif; color: var(--cyan); }
+    .old-price { color: var(--muted); text-decoration:line-through; font-size:0.84rem; }
+    .product-actions { display:flex; align-items:center; gap:8px; margin-left:auto; }
+    .mini-btn {
+      height:38px; min-width:38px; border-radius:12px; border:1px solid var(--line); background: rgba(255,255,255,0.02); color:var(--ink); font-weight:700; padding: 0 12px; display: inline-flex; align-items: center; justify-content: center; white-space: nowrap;
+    }
+    .mini-btn.primary { background: linear-gradient(135deg, var(--cyan), var(--purple)); color:#071018; border-color:transparent; padding:0 14px; min-width:auto; }
+
+    .cart-item { display:grid; grid-template-columns:90px 1fr auto; gap:14px; padding:12px 0; border-bottom:1px solid var(--line); align-items:center; }
+    .cart-item img { width:90px; height:110px; object-fit:cover; object-position:center; border-radius:14px; border:1px solid var(--line); background: linear-gradient(135deg, rgba(0,242,254,0.12), rgba(143,91,255,0.12)); }
+    .cart-item h4 { font-size:1.08rem; line-height:1.15; margin-bottom:6px; }
+    .cart-item .meta { color:var(--muted); font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase; }
+    .cart-item .line-total { display:flex; align-items:center; justify-content:space-between; margin-top:12px; }
+
+    .toast-stack {
+      position: fixed; right: 20px; bottom: 20px; display: grid; gap: 12px; z-index: 200; pointer-events: none;
+    }
+    .toast {
+      min-width: min(320px, calc(100vw - 32px)); max-width: 360px; background: rgba(11, 18, 27, 0.95); border: 1px solid rgba(255,255,255,0.08); border-left: 4px solid var(--cyan); color: var(--ink); border-radius: 14px; padding: 12px 14px; box-shadow: var(--shadow); opacity: 0; transform: translateY(10px); animation: toastIn 0.3s ease forwards;
+    }
+    .toast.error { border-left-color: var(--danger); }
+    .toast.success { border-left-color: var(--success); }
+    @keyframes toastIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cart-section {
+      padding-top: 20px;
+    }
+    .cart-shell {
+      background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:30px; padding:20px; box-shadow:var(--shadow);
+    }
+    .cart-tabs {
+      display:flex; flex-wrap:wrap; gap:10px; margin-bottom:20px;
+    }
+    .cart-tab {
+      min-height:42px; padding:0 18px; border-radius:999px; border:1px solid var(--line); background: rgba(255,255,255,0.03); color:var(--muted); font-weight:700;
+    }
+    .cart-tab.active {
+      background: linear-gradient(135deg, var(--cyan), var(--purple)); color:#071018; border-color:transparent;
+    }
+    .cart-tab-panel { display:none; }
+    .cart-tab-panel.active { display:block; }
+    .cart-page-grid {
+      display:grid; grid-template-columns: 1.4fr 0.6fr; gap:18px; align-items:start;
+    }
+    .cart-page-column {
+      background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:22px; padding:18px;
+    }
+    .cart-page-list { display:grid; gap:14px; }
+    .cart-page-item {
+      display:grid; grid-template-columns:100px 1fr auto; gap:14px; align-items:center; padding:14px 0; border-bottom:1px solid var(--line);
+    }
+    .cart-page-item:last-child { border-bottom:0; }
+    .cart-page-item img {
+      width:100px; height:120px; object-fit:cover; border-radius:14px; border:1px solid var(--line); background: linear-gradient(135deg, rgba(0,242,254,0.12), rgba(143,91,255,0.12));
+    }
+    .cart-page-item h4 { font-size:1.25rem; line-height:1.15; margin-bottom:6px; }
+    .cart-page-price { font-size:1.15rem; font-family:'Orbitron', sans-serif; color:var(--cyan); }
+    .cart-summary-box {
+      display:grid; gap:18px; padding:18px; background: rgba(255,255,255,0.02); border:1px solid var(--line); border-radius:22px;
+    }
+    .summary-stack { display:grid; gap:10px; }
+    .summary-row { display:flex; justify-content:space-between; align-items:center; color:var(--muted); }
+    .summary-row.total { color:var(--ink); font-size:1.2rem; font-weight:700; border-top:1px solid var(--line); padding-top:12px; }
+    .empty-cart-box {
+      padding:30px 20px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:18px; background: rgba(255,255,255,0.02);
+    }
+    .cart-drawer { display:none; }
+
+    @media (max-width: 820px) {
+      .cart-page-grid { grid-template-columns:1fr; }
+    }
+
+    @media (max-width: 1100px) {
+      .feature-grid, .product-grid, .related-grid, .trust-grid, .testimonials, .brand-list { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .detail-layout, .story-grid, .contact-wrap, .checkout-grid, .hero-inner, .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 820px) {
+      .nav-links, .search { display:none; }
+      .menu-toggle { display:inline-flex; align-items:center; justify-content:center; }
+      .hero { padding-top:32px; }
+      .campaign-slide { grid-template-columns:1fr; padding:26px 22px; }
+      .feature-grid, .product-grid, .related-grid, .brand-list, .testimonials, .trust-grid, .account-summary, .stats-row, .field-grid { grid-template-columns: 1fr; }
+      .account-layout { grid-template-columns:1fr; }
+      .shop-toolbar, .section-head, .footer-bottom { flex-direction:column; align-items:flex-start; }
+      .main-frame { height:420px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" aria-label="Cabeçalho principal">
+    <div class="topbar">
+      <div class="container">
+        <span>Frete grátis acima de R$ 1.200,00</span>
+        <span>Entrega expressa em 48h</span>
+      </div>
+    </div>
+
+    <div class="container nav">
+      <div class="brand" aria-label="Logo PixelGearStore">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>PixelGearStore</span>
+      </div>
+
+      <button class="menu-toggle" aria-label="Abrir menu">☰</button>
+
+      <nav class="nav-links" aria-label="Navegação principal">
+        <a href="#inicio" class="active">Início</a>
+        <a href="#categorias">Categorias</a>
+        <a href="#novidades">Novidades</a>
+        <a href="#ofertas">Ofertas</a>
+        <a href="#marcas">Marcas</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <div class="nav-tools">
+        <label class="search" aria-label="Busca no catálogo">
+          <span class="sr-only">Buscar produtos</span>
+          <input id="searchInput" type="search" placeholder="Buscar teclado, mouse, setup..." />
+          <span class="search-icon" aria-hidden="true">⌕</span>
+        </label>
+
+        <button class="icon-btn" aria-label="Conta do cliente">👤</button>
+        <button class="icon-btn" aria-label="Lista de desejos">♡<span class="badge">2</span></button>
+        <button class="icon-btn" id="cartToggle" aria-label="Abrir carrinho">🛍<span class="badge" id="cartCount">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <span class="eyebrow">Performance em alta</span>
+          <h1>Eleve seu setup ao nível pro.</h1>
+          <p>Periféricos, acessórios e hardware premium para quem vive e respira esports. Construa a melhor configuração com potência, precisão e estética de alto impacto.</p>
+
+          <div class="hero-actions">
+            <a href="#categorias" class="btn primary">Comprar agora</a>
+            <a href="#sobre" class="btn secondary">Nossa história</a>
+          </div>
+
+          <div class="hero-meta" aria-label="Estatísticas da loja">
+            <div class="hero-stat">
+              <strong>18k+</strong>
+              <span>Gamers</span>
+            </div>
+            <div class="hero-stat">
+              <strong>4.9/5</strong>
+              <span>Avaliação</span>
+            </div>
+            <div class="hero-stat">
+              <strong>48h</strong>
+              <span>Entrega</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Produto em destaque">
+          <div class="visual-stage">
+            <div class="hero-product">
+              <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=900&q=80" alt="Setup gamer premium" />
+            </div>
+            <div class="floating-badge">Coleção limitada</div>
+            <div class="gaming-card">
+              <span class="mini-label">Lançamento</span>
+              <h3>RTX 4080</h3>
+              <span class="price">R$ 7.899</span>
+              <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80" alt="Placa de vídeo gamer" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="campaign-strip">
+      <div class="container">
+        <div class="campaign-carousel" aria-label="Carrossel de campanhas">
+          <div class="carousel-track" id="carouselTrack">
+            <article class="campaign-slide">
+              <div>
+                <span class="label">Pro gear</span>
+                <h3>Até 40% em periféricos premium.</h3>
+                <p>Desbloqueie velocidade, precisão e conforto com equipamentos feitos para atuação competitiva e setups imersivos.</p>
+                <a href="#categorias" class="btn secondary">Explorar coleção</a>
+              </div>
+              <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1000&q=80" alt="Setup gamer com teclado e monitor" />
+            </article>
+            <article class="campaign-slide">
+              <div>
+                <span class="label">Stream ready</span>
+                <h3>Domine o palco da competição.</h3>
+                <p>Monitores, cadeiras e itens de criação para transmitir com qualidade profissional e foco total na performance.</p>
+                <a href="#ofertas" class="btn secondary">Ver ofertas</a>
+              </div>
+              <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=1000&q=80" alt="Cadeira gamer e teclado" />
+            </article>
+            <article class="campaign-slide">
+              <div>
+                <span class="label">Vision pro</span>
+                <h3>Visão nítida. Jogabilidade impecável.</h3>
+                <p>Soluções visuais de última geração para ajudar a controlar cada frame, micro movimento e detalhe do mapa.</p>
+                <a href="#novidades" class="btn secondary">Descobrir acessórios</a>
+              </div>
+              <img src="https://images.unsplash.com/photo-1552320651-8cbf4e8710d6?auto=format&fit=crop&w=1000&q=80" alt="Monitor gamer premium" />
+            </article>
+          </div>
+          <div class="carousel-controls">
+            <button class="carousel-btn" id="prevSlide" aria-label="Slide anterior">←</button>
+            <button class="carousel-btn" id="nextSlide" aria-label="Próximo slide">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="brands-bar" id="marcas">
+      <div class="container brand-list" aria-label="Marcas parceiras">
+        <div class="brand-item">NVIDIA</div>
+        <div class="brand-item">MSI</div>
+        <div class="brand-item">Logitech</div>
+        <div class="brand-item">Razer</div>
+        <div class="brand-item">Redragon</div>
+        <div class="brand-item">Corsair</div>
+      </div>
+    </section>
+
+    <section class="section" id="novidades">
+      <div class="container">
+        <div class="section-head">
+          <h2>Novidades e lançamentos</h2>
+          <a href="#categorias" class="link">Ver toda a coleção</a>
+        </div>
+        <div class="feature-grid" id="newArrivals"></div>
+      </div>
+    </section>
+
+    <section class="section" id="categorias">
+      <div class="container">
+        <div class="section-head">
+          <h2>Catálogo premium</h2>
+          <a href="#" class="link">Minhas preferências</a>
+        </div>
+
+        <div class="shop-shell">
+          <div class="shop-toolbar">
+            <div class="tab-list" id="categoryTabs" aria-label="Categorias de produtos">
+              <button class="tab-btn active" data-category="todos">Todos</button>
+              <button class="tab-btn" data-category="teclados">Teclados</button>
+              <button class="tab-btn" data-category="mouses">Mouses</button>
+              <button class="tab-btn" data-category="audio">Áudio</button>
+              <button class="tab-btn" data-category="cadeiras">Cadeiras</button>
+            </div>
+
+            <div class="filter-group" aria-label="Filtros do catálogo">
+              <select id="filterPrice">
+                <option value="all">Preço</option>
+                <option value="0-400">Até R$ 400</option>
+                <option value="401-800">R$ 401 a R$ 800</option>
+                <option value="801-1500">R$ 801 a R$ 1.500</option>
+                <option value="1501-99999">Acima de R$ 1.500</option>
+              </select>
+
+              <select id="filterColor">
+                <option value="all">Cor</option>
+                <option value="preto">Preto</option>
+                <option value="branco">Branco</option>
+                <option value="cinza">Cinza</option>
+                <option value="vermelho">Vermelho</option>
+                <option value="azul">Azul</option>
+              </select>
+
+              <select id="sortProducts">
+                <option value="relevancia">Ordenar por</option>
+                <option value="preco-asc">Menor preço</option>
+                <option value="preco-desc">Maior preço</option>
+                <option value="avaliacao">Melhor avaliação</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="results-count" id="resultsCount">0 itens</div>
+          <div class="product-grid" id="productGrid" aria-live="polite"></div>
+          <div class="load-more">
+            <button class="btn ghost" id="loadMoreBtn">Carregar mais</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section detail-section" aria-label="Página simulada de produto">
+      <div class="container">
+        <div class="section-head">
+          <h2>Detalhes do produto</h2>
+          <span class="link">Visualização premium</span>
+        </div>
+
+        <div class="detail-layout">
+          <div class="gallery">
+            <div class="main-frame">
+              <img id="detailMainImage" src="" alt="Imagem principal do produto" />
+            </div>
+            <div class="thumbs" id="detailThumbs"></div>
+          </div>
+
+          <div class="detail-info">
+            <div class="crumbs" id="detailCrumbs">Home / Catálogo / Produto</div>
+            <h2 id="detailName">Nome do produto</h2>
+            <div class="rating-row">
+              <span class="stars" id="detailStars">★★★★★</span>
+              <span id="detailRatingText">4.9 (184 avaliações)</span>
+            </div>
+
+            <div class="detail-price">
+              <strong id="detailPrice">R$ 0,00</strong>
+              <span id="detailOldPrice">R$ 0,00</span>
+            </div>
+
+            <p id="detailDescription"></p>
+
+            <div class="variant-group">
+              <div class="variant-label"><span>Cor</span><span id="selectedColorLabel">Selecionado</span></div>
+              <div class="option-list" id="detailColors"></div>
+            </div>
+
+            <div class="variant-group">
+              <div class="variant-label"><span>Modelo</span><span id="selectedSizeLabel">Selecionado</span></div>
+              <div class="option-list" id="detailSizes"></div>
+            </div>
+
+            <div class="purchase-row">
+              <div class="qty-control" aria-label="Quantidade">
+                <button type="button" id="qMinus" aria-label="Diminuir quantidade">−</button>
+                <span id="detailQty">1</span>
+                <button type="button" id="qPlus" aria-label="Aumentar quantidade">+</button>
+              </div>
+              <button class="btn primary" id="addToCartDetail">Adicionar ao carrinho</button>
+            </div>
+
+            <ul class="detail-meta">
+              <li><span class="dot"></span> Frete express para todo o Brasil</li>
+              <li><span class="dot"></span> Troca em até 30 dias</li>
+              <li><span class="dot"></span> Compra protegida por garantia premium</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="detail-tabs" aria-label="Abas de detalhes do produto">
+          <button class="detail-tab active" data-panel="descricao">Descrição</button>
+          <button class="detail-tab" data-panel="medidas">Especificações</button>
+          <button class="detail-tab" data-panel="avaliacoes">Avaliações</button>
+        </div>
+
+        <div class="detail-panel active" id="descricao">
+          <p id="detailLongDescription"></p>
+          <ul id="detailBullets"></ul>
+        </div>
+
+        <div class="detail-panel" id="medidas">
+          <p id="detailMeasures"></p>
+        </div>
+
+        <div class="detail-panel" id="avaliacoes">
+          <div class="testimonials" id="reviewList"></div>
+        </div>
+
+        <div class="section-head" style="margin-top: 32px;">
+          <h2>Relacionados</h2>
+          <a href="#categorias" class="link">Ver mais</a>
+        </div>
+        <div class="related-grid" id="relatedGrid"></div>
+      </div>
+    </section>
+
+    <section class="section" id="ofertas">
+      <div class="container">
+        <div class="section-head">
+          <h2>Ofertas selecionadas</h2>
+          <a href="#categorias" class="link">Ver tudo</a>
+        </div>
+        <div class="product-grid" id="offerGrid"></div>
+      </div>
+    </section>
+
+    <div class="trust-band">
+      <div class="container trust-grid" aria-label="Selo de confiança">
+        <div class="trust-item">
+          <span class="icon">🛡</span>
+          <div><div>Compra segura</div><small class="muted">SSL 256-bit</small></div>
+        </div>
+        <div class="trust-item">
+          <span class="icon">🚚</span>
+          <div><div>Frete grátis</div><small class="muted">Acima de R$ 1.200</small></div>
+        </div>
+        <div class="trust-item">
+          <span class="icon">↺</span>
+          <div><div>Troca facilitada</div><small class="muted">Até 30 dias</small></div>
+        </div>
+        <div class="trust-item">
+          <span class="icon">✦</span>
+          <div><div>Atendimento</div><small class="muted">Suporte premium</small></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" id="sobre">
+      <div class="container story-grid">
+        <div class="story-visual">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1000&q=80" alt="Estilo gamer e profissional" />
+        </div>
+        <div class="story-card">
+          <span class="eyebrow">Sobre a PixelGearStore</span>
+          <h3>Roupas, hardwares e acessórios para o jogador que quer vencer.</h3>
+          <p>Desde 2020, curamos produtos que unem performance, estética e confiabilidade para quem vive jogos, streaming e produtividade em um único setup. Aqui, cada item é pensado para elevar a sua rotina digital e a sua presença no cenário competitivo.</p>
+          <div class="stats-row">
+            <div class="stat-box"><strong>12+</strong><span class="muted">anos</span></div>
+            <div class="stat-box"><strong>140</strong><span class="muted">marcas</span></div>
+            <div class="stat-box"><strong>98%</strong><span class="muted">satisfeitos</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container" style="margin-top: 28px;">
+        <div class="testimonials">
+          <article class="quote-card">
+            <div class="stars">★★★★★</div>
+            <p>“A qualidade do setup e a sensação de resposta do teclado são absurdas. Vale cada centavo.”</p>
+            <div class="person"><strong>Lucas M.</strong><span>São Paulo</span></div>
+          </article>
+          <article class="quote-card">
+            <div class="stars">★★★★★</div>
+            <p>“Entrega rápida, atendimento excelente e produtos que realmente entregam performance pro.”</p>
+            <div class="person"><strong>Maria G.</strong><span>Curitiba</span></div>
+          </article>
+          <article class="quote-card">
+            <div class="stars">★★★★★</div>
+            <p>“Meu setup ficou impecável, do mouse ao monitor. Produto premium sem erro.”</p>
+            <div class="person"><strong>Rafael C.</strong><span>Rio</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="cliente">
+      <div class="container">
+        <div class="section-head">
+          <h2>Minha conta</h2>
+          <span class="link">Área do cliente</span>
+        </div>
+
+        <div class="account-shell">
+          <div class="account-layout">
+            <aside class="account-sidebar" aria-label="Menu da conta">
+              <button class="account-tab active" data-account="resumo">Resumo</button>
+              <button class="account-tab" data-account="pedidos">Pedidos</button>
+              <button class="account-tab" data-account="enderecos">Endereços</button>
+              <button class="account-tab" data-account="lista">Lista de desejos</button>
+            </aside>
+            <div class="account-panel" id="accountPanel"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contato">
+      <div class="container">
+        <div class="section-head">
+          <h2>Fale conosco</h2>
+          <span class="link">Atendimento personalizado</span>
+        </div>
+
+        <div class="contact-wrap">
+          <div class="contact-aside">
+            <span class="eyebrow" style="color: var(--cyan);">Atendimento</span>
+            <h3 style="font-size: 3rem;">Vamos montar o seu setup ideal.</h3>
+            <p>Especialistas prontos para orientar na compra ideal, responder dúvidas sobre compatibilidade e montar uma configuração de alto desempenho.</p>
+            <p><strong>contato@pixelgearstore.com</strong></p>
+            <p>+55 (11) 4002-9001</p>
+          </div>
+
+          <div class="contact-form">
+            <form id="contactForm" novalidate>
+              <div class="field-grid">
+                <div class="form-field">
+                  <label for="contactName">Nome</label>
+                  <input id="contactName" type="text" required />
+                </div>
+                <div class="form-field">
+                  <label for="contactEmail">E-mail</label>
+                  <input id="contactEmail" type="email" required />
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="contactSubject">Assunto</label>
+                <input id="contactSubject" type="text" placeholder="Compatibilidade, orçamento, entrega..." required />
+              </div>
+              <div class="form-field">
+                <label for="contactMessage">Mensagem</label>
+                <textarea id="contactMessage" required></textarea>
+              </div>
+              <button class="btn primary" type="submit">Enviar mensagem</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cart-section" id="cartSection">
+      <div class="container">
+        <div class="cart-shell">
+          <div class="cart-tabs" aria-label="Abas do carrinho">
+            <button class="cart-tab active" type="button" data-cart-tab="itens">Itens</button>
+            <button class="cart-tab" type="button" data-cart-tab="resumo">Resumo</button>
+            <button class="cart-tab" type="button" data-cart-tab="pagamento">Pagamento</button>
+          </div>
+
+          <div class="cart-tab-panel active" data-cart-panel="itens">
+            <div class="cart-page-grid">
+              <div class="cart-page-column">
+                <div class="cart-page-list" id="cartPageItems"></div>
+              </div>
+
+              <aside class="cart-summary-box">
+                <h3 style="font-size: 2.1rem;">Resumo</h3>
+                <div class="summary-stack">
+                  <div class="summary-row"><span>Subtotal</span><strong id="pageSubtotalValue">R$ 0,00</strong></div>
+                  <div class="summary-row"><span>Frete</span><strong id="pageShippingValue">R$ 0,00</strong></div>
+                  <div class="summary-row"><span>Desconto</span><strong id="pageDiscountValue">- R$ 0,00</strong></div>
+                  <div class="summary-row total"><span>Total</span><strong id="pageTotalValue">R$ 0,00</strong></div>
+                </div>
+
+                <div class="coupon-box" style="display:flex; gap:10px; margin-top: 6px;">
+                  <input id="pageCouponInput" type="text" placeholder="Cupom de desconto" aria-label="Cupom" style="flex:1; min-height:46px; border-radius:999px; border:1px solid var(--line); padding:0 14px; background: rgba(255,255,255,0.04); color:var(--ink);" />
+                  <button class="btn ghost" id="pageApplyCoupon" type="button">Aplicar</button>
+                </div>
+
+                <button class="btn primary" type="button" id="pageCheckoutBtn">Finalizar compra</button>
+              </aside>
+            </div>
+          </div>
+
+          <div class="cart-tab-panel" data-cart-panel="resumo">
+            <div class="cart-page-column">
+              <div class="summary-stack">
+                <div class="summary-row"><span>Itens</span><strong id="pageListCount">0</strong></div>
+                <div class="summary-row"><span>Entrega</span><strong>Em até 48h</strong></div>
+                <div class="summary-row"><span>Parcelamento</span><strong>Até 12x</strong></div>
+                <div class="summary-row"><span>Garantia</span><strong>12 meses</strong></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cart-tab-panel" data-cart-panel="pagamento">
+            <div class="cart-page-column">
+              <div class="form-field">
+                <label for="pagePaymentMethod">Forma de pagamento</label>
+                <select id="pagePaymentMethod" style="width:100%; min-height:48px; border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,0.04); color:var(--ink); padding:0 14px;">
+                  <option>Cartão de crédito</option>
+                  <option>Cartão de débito</option>
+                  <option>Pix</option>
+                  <option>Boleto</option>
+                </select>
+              </div>
+              <button class="btn primary" type="button" id="confirmPaymentBtn">Confirmar pagamento</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">
+            <span class="brand-mark" style="width:32px;height:32px;"></span>
+            <span>PixelGearStore</span>
+          </div>
+          <p>Uma loja premium para gamers que desejam alto desempenho, qualidade e presença em cada setup.</p>
+          <div class="newsletter">
+            <input type="email" placeholder="Seu melhor e-mail" aria-label="E-mail para newsletter" />
+            <button type="button">Inscrever</button>
+          </div>
+        </div>
+
+        <div>
+          <h4>Loja</h4>
+          <ul>
+            <li><a href="#categorias">Teclados</a></li>
+            <li><a href="#categorias">Mouses</a></li>
+            <li><a href="#categorias">Áudio</a></li>
+            <li><a href="#categorias">Cadeiras</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Institucional</h4>
+          <ul>
+            <li><a href="#sobre">Nossa história</a></li>
+            <li><a href="#contato">Atendimento</a></li>
+            <li><a href="#">Política de trocas</a></li>
+            <li><a href="#">Termos</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Pagamento</h4>
+          <p>Cartões, boleto, Pix e parcelamento em até 12x.</p>
+          <div class="pay-row">
+            <span class="pay-pill">Visa</span>
+            <span class="pay-pill">Mastercard</span>
+            <span class="pay-pill">Pix</span>
+          </div>
+          <div class="socials" style="margin-top: 18px;">
+            <a href="#" aria-label="Instagram">◎</a>
+            <a href="#" aria-label="X">✕</a>
+            <a href="#" aria-label="Discord">◍</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 PixelGearStore</span>
+        <span>Todos os direitos reservados</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const products = [
+      {
+        id: 1,
+        name: 'Teclado Vanta Pro',
+        category: 'teclados',
+        collection: 'Teclados',
+        price: 899,
+        oldPrice: 1099,
+        rating: 4.9,
+        reviews: 184,
+        badge: 'Lançamento',
+        colors: ['preto', 'azul', 'cinza'],
+        sizes: ['Full', 'TKL'],
+        images: [
+          'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1601445638532-3c6d0a0b6c3c?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1522071901873-411886a10004?auto=format&fit=crop&w=900&q=80'
+        ],
+        description: 'Teclado mecânico com switches rápidos e iluminação RGB dinâmica para partidas intensas.',
+        longDescription: 'Construído para desempenho competitivo, o Vanta Pro combina switches responsivos, acabamento premium e layout robusto para qualquer setup gamer. A iluminação RGB ajustável eleva ainda mais a estética do ambiente.',
+        bullets: ['Switches lineares ultra rápidos', 'RGB personalizável por zona', 'Construção metálica premium', 'Layout com encaixe sem ruído'],
+        measures: 'Altura 40 mm | Comprimento 445 mm | Peso 1,2 kg',
+        reviewTexts: ['Qualidade de acabamento impecável e sensação de resposta muito boa.', 'O melhor teclado da minha mesa; muito versátil e muito bonito.', 'RGB excelente e resposta muito rápida.']
+      },
+      {
+        id: 2,
+        name: 'Mouse Nova X',
+        category: 'mouses',
+        collection: 'Mouses',
+        price: 429,
+        oldPrice: 560,
+        rating: 4.8,
+        reviews: 97,
+        badge: 'Top',
+        colors: ['preto', 'vermelho', 'cinza'],
+        sizes: ['Ambidestro', 'Direito'],
+        images: [
+          'https://images.unsplash.com/photo-1563297008-e1c4d8f91a57?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=900&q=80'
+        ],
+        description: 'Mouse ultraleve com sensor de alta precisão e clique silencioso para maior conforto.',
+        longDescription: 'Perfeito para quem prefere velocidade e precisão, o Nova X entrega controle total em movimentos rápidos, além de um peso extremamente leve para não atrapalhar o desempenho em partidas decisivas.',
+        bullets: ['Sensor 26.000 DPI', 'Construção ultraleve', 'Pés de borracha anti-deslizantes', 'Cliques silenciosos e responsivos'],
+        measures: 'Peso 59 g | Altura 116 mm | Largura 62 mm',
+        reviewTexts: ['Mouse muito leve e confortável para partidas longas.', 'Sensação de precisão melhor do que eu esperava.', 'Excelente para quem joga FPS e precisa de agilidade.']
+      },
+      {
+        id: 3,
+        name: 'Headset Pulse 7',
+        category: 'audio',
+        collection: 'Áudio',
+        price: 699,
+        oldPrice: 920,
+        rating: 4.9,
+        reviews: 142,
+        badge: 'Novo',
+        colors: ['preto', 'azul'],
+        sizes: ['Stereo', '7.1'],
+        images: [
+          'https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1524678606370-a47ad25cb82a?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1518444065439-e933c06ce9cd?auto=format&fit=crop&w=900&q=80'
+        ],
+        description: 'Headset com áudio imersivo, microfone cristalino e conforto de longa duração.',
+        longDescription: 'O Pulse 7 é pensado para jogadores que querem clareza, conforto e presença em cada partida. O som espacial ajuda na localização de passos, enquanto a ergonomia permite horas de gameplay sem desconforto.',
+        bullets: ['Áudio surround 7.1', 'Microfone com cancelamento de ruído', 'Almofadas acolchoadas', 'Conforto extremo para sessões longas'],
+        measures: 'Massa 310 g | Cabo reforçado 2,2 m',
+        reviewTexts: ['Som muito claro e microfone muito bom.', 'Conforto excelente para longas jogatinas.', 'Perfeito para jogar e streamar.']
+      },
+      {
+        id: 4,
+        name: 'Cadeira Apex 900',
+        category: 'cadeiras',
+        collection: 'Cadeiras',
+        price: 1699,
+        oldPrice: 2190,
+        rating: 4.7,
+        reviews: 88,
+        badge: 'Oferta',
+        colors: ['preto', 'cinza'],
+        sizes: ['P', 'M', 'G'],
+        images: [
+          'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=900&q=80'
+        ],
+        description: 'Cadeira ergonômica com encosto alto e ajuste preciso para longas sessões.',
+        longDescription: 'A Apex 900 foi criada para quem entende que conforto é parte do desempenho. Com ajuste de altura e encosto, ela mantém postura correta e ajuda a reduzir fadiga durante as partidas e o trabalho.',
+        bullets: ['Encosto de alto suporte', 'Mecanismo de reclinação', 'Material respirável', 'Base reforçada com rodízios premium'],
+        measures: 'Altura 1,20 m | Capacidade 150 kg',
+        reviewTexts: ['Muito confortável e bem feita. Valeu muito a pena.', 'Conforto excelente para longas horas sentado.', 'Estética muito boa e muito reforçada.']
+      },
+      {
+        id: 5,
+        name: 'Monitor Titan 27',
+        category: 'teclados',
+        collection: 'Monitores',
+        price: 2499,
+        oldPrice: 3190,
+        rating: 4.9,
+        reviews: 203,
+        badge: 'Elite',
+        colors: ['preto', 'cinza'],
+        sizes: ['27"', '32"'],
+        images: [
+          'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1531497865144-0464ef8fb9a9?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=900&q=80'
+        ],
+        description: 'Monitor 144Hz com contraste premium e resposta ultra rápida para partidas competitivas.',
+        longDescription: 'Com painel de alto desempenho e reprodução de imagem precisa, o Titan 27 oferece velocidade, profundidade de cor e resposta imediata, tudo essencial para quem vive na busca da vantagem competitiva.',
+        bullets: ['144Hz de taxa de atualização', 'Resposta de 1 ms', 'Painel de alta fidelidade', 'Design slim e elegante'],
+        measures: '27" QHD | 144Hz | HDMI + DisplayPort',
+        reviewTexts: ['Visual incrível e resposta muito boa. Superou minhas expectativas.', 'Muito nítido e ideal para jogos competitivos.', 'A qualidade da imagem é inacreditável.']
+      },
+      {
+        id: 6,
+        name: 'Almofada RGB Arc',
+        category: 'audio',
+        collection: 'Acessórios',
+        price: 340,
+        oldPrice: 420,
+        rating: 4.8,
+        reviews: 71,
+        badge: 'Acessório',
+        colors: ['preto', 'azul', 'vermelho'],
+        sizes: ['P', 'M'],
+        images: [
+          'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80'
+        ],
+        description: 'Almofada de suporte para teclado com iluminação e conforto para uso prolongado.',
+        longDescription: 'A Arc foi criada para gamers e criadores que querem elevar o conforto da mesa sem perder o estilo. Sua iluminação discreta e ergonomia ajudam a tornar o ambiente mais imersivo.',
+        bullets: ['LED RGB ajustável', 'Base em gel de conforto', 'Materiais de alta durabilidade', 'Boa aderência ao setup'],
+        measures: 'Altura 6 cm | Comprimento 45 cm',
+        reviewTexts: ['Muito bonita e prática. Já entrou no setup principal.', 'A iluminação é muito boa e o conforto também.', 'Produto muito útil para quem passa muito tempo na mesa.']
+      },
+      {
+        id: 7,
+        name: 'Mousepad Neon Edge',
+        category: 'mouses',
+        collection: 'Acessórios',
+        price: 220,
+        oldPrice: 290,
+        rating: 4.7,
+        reviews: 54,
+        badge: 'Especial',
+        colors: ['preto', 'azul', 'branco'],
+        sizes: ['XL', 'M'],
+        images: [
+          'https://images.unsplash.com/photo-1527814050087-3793815479db?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80'
+        ],
+        description: 'Mousepad de grande superfície com acabamento de alta aderência e borda reforçada.',
+        longDescription: 'O Neon Edge é essencial para quem quer maior precisão de movimento e melhor aderência. Sua textura fina proporciona resposta imediata e o design com borda iluminada complementa setups premium.',
+        bullets: ['Superfície baixa fricção', 'Borda reforçada', 'Aumento da precisão visual', 'Compatível com vários modelos de mouse'],
+        measures: '80 x 40 cm',
+        reviewTexts: ['A textura é incrível e ajuda muito na precisão.', 'Muito bom para mouse de FPS.', 'A borda iluminada ficou perfeita no setup.']
+      },
+      {
+        id: 8,
+        name: 'Mesa Quantum',
+        category: 'cadeiras',
+        collection: 'Setup',
+        price: 2890,
+        oldPrice: 3490,
+        rating: 4.8,
+        reviews: 66,
+        badge: 'Setup',
+        colors: ['preto', 'cinza'],
+        sizes: ['M', 'G'],
+        images: [
+          'https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80',
+          'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80'
+        ],
+        description: 'Mesa gamer com organização premium, estrutura sólida e espaço para montagem de alto nível.',
+        longDescription: 'Para setups que exigem organização e presença, a Quantum entrega estrutura reforçada e espaço premium para monitores, cadeiras, iluminação e acessórios. O resultado é uma experiência visual e funcional mais completa.',
+        bullets: ['Estrutura reforçada', 'Área ampla para multitarefas', 'Montagem funcional e profissional', 'Visual premium para qualquer ambiente'],
+        measures: '120 x 60 cm | altura ajustável',
+        reviewTexts: ['Mesa muito bonita e funcional. Ótimo para qualquer setup.', 'A qualidade da estrutura é incrível e a organização ficou muito melhor.', 'Perfeita para montar um ambiente gamer mais profissional.']
+      }
+    ];
+
+    const cart = [];
+    let currentCategory = 'todos';
+    let currentVisible = 8;
+    let selectedProductId = products[0].id;
+    let selectedColor = '';
+    let selectedSize = '';
+    let detailQty = 1;
+    let activeAccountTab = 'resumo';
+    let activeSlide = 0;
+    let discountApplied = false;
+
+    function formatCurrency(value) {
+      return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+    }
+
+    function starRating(rating) {
+      const filled = Math.round(rating);
+      return '★'.repeat(filled) + '☆'.repeat(5 - filled);
+    }
+
+    function getFilteredProducts() {
+      const searchTerm = document.getElementById('searchInput')?.value.trim().toLowerCase() || '';
+      const priceFilter = document.getElementById('filterPrice')?.value || 'all';
+      const colorFilter = document.getElementById('filterColor')?.value || 'all';
+
+      return products.filter(product => {
+        const matchesCategory = currentCategory === 'todos' || product.category === currentCategory;
+        const matchesSearch = !searchTerm || product.name.toLowerCase().includes(searchTerm) || product.description.toLowerCase().includes(searchTerm);
+        const matchesPrice = (() => {
+          if (priceFilter === 'all') return true;
+          const [min, max] = priceFilter.split('-').map(Number);
+          return product.price >= min && product.price <= max;
+        })();
+        const matchesColor = colorFilter === 'all' || product.colors.includes(colorFilter);
+        return matchesCategory && matchesSearch && matchesPrice && matchesColor;
+      });
+    }
+
+    function showToast(message, type = 'success') {
+      const stack = document.getElementById('toastStack') || (() => {
+        const el = document.createElement('div');
+        el.id = 'toastStack';
+        el.className = 'toast-stack';
+        document.body.appendChild(el);
+        return el;
+      })();
+
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      stack.appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 2200);
+    }
+
+    function safeImage(imageUrl, fallback = 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80') {
+      return imageUrl && imageUrl.trim() ? imageUrl : fallback;
+    }
+
+    function renderNewArrivals() {
+      const container = document.getElementById('newArrivals');
+      if (!container) return;
+      const items = products.slice(0, 4);
+      container.innerHTML = items.map(product => `
+        <article class="product-card" data-id="${product.id}">
+          <div class="product-media">
+            <span class="product-chip">${product.badge}</span>
+            <button class="wishlist-btn" type="button" aria-label="Adicionar aos favoritos">♡</button>
+            <img src="${safeImage(product.images[0])}" alt="${product.name}" loading="lazy" />
+          </div>
+          <div class="product-body">
+            <div class="meta-row"><span>${product.collection}</span><span>${product.rating.toFixed(1)} ★</span></div>
+            <h3>${product.name}</h3>
+            <div class="product-footer">
+              <div class="price-wrap"><strong>${formatCurrency(product.price)}</strong><span class="old-price">${formatCurrency(product.oldPrice)}</span></div>
+              <div class="product-actions">
+                <button class="mini-btn" type="button" data-quick-view="${product.id}" aria-label="Ver detalhes do produto">↗</button>
+                <button class="mini-btn primary" type="button" data-add="${product.id}">Adicionar</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      const count = document.getElementById('resultsCount');
+      if (!grid) return;
+
+      const filtered = getFilteredProducts();
+      const sorted = [...filtered];
+      const sortValue = document.getElementById('sortProducts')?.value || 'relevancia';
+
+     
+      if (sortValue === 'preco-asc') sorted.sort((a, b) => a.price - b.price);
+      if (sortValue === 'preco-desc') sorted.sort((a, b) => b.price - a.price);
+      if (sortValue === 'avaliacao') sorted.sort((a, b) => b.rating - a.rating);
+
+      const displayed = sorted.slice(0, currentVisible);
+      count.textContent = `${filtered.length} itens`;
+
+      if (!displayed.length) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1; padding:40px 0; text-align:center; color:var(--muted);">Nenhum item encontrado para os filtros aplicados.</div>';
+        return;
+      }
+
+      grid.innerHTML = displayed.map(product => `
+        <article class="product-card" data-id="${product.id}">
+          <div class="product-media">
+            <span class="product-chip">${product.badge}</span>
+            <button class="wishlist-btn" type="button" aria-label="Adicionar aos favoritos">♡</button>
+            <img src="${safeImage(product.images[0])}" alt="${product.name}" loading="lazy" />
+          </div>
+          <div class="product-body">
+            <div class="meta-row"><span>${product.collection}</span><span>${product.rating.toFixed(1)} ★</span></div>
+            <h3>${product.name}</h3>
+            <div class="rating-row"><span class="stars">${starRating(product.rating)}</span><span>(${product.reviews})</span></div>
+            <div class="product-footer">
+              <div class="price-wrap"><strong>${formatCurrency(product.price)}</strong><span class="old-price">${formatCurrency(product.oldPrice)}</span></div>
+              <div class="product-actions">
+                <button class="mini-btn" type="button" data-quick-view="${product.id}" aria-label="Ver detalhes da peça">↗</button>
+                <button class="mini-btn primary" type="button" data-add="${product.id}">Adicionar</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderOfferGrid() {
+      const grid = document.getElementById('offerGrid');
+      if (!grid) return;
+      const offers = products.filter(product => product.oldPrice > product.price).slice(0, 4);
+      grid.innerHTML = offers.map(product => `
+        <article class="product-card" data-id="${product.id}">
+          <div class="product-media">
+            <span class="product-chip">Oferta</span>
+            <button class="wishlist-btn" type="button" aria-label="Adicionar aos favoritos">♡</button>
+            <img src="${safeImage(product.images[0])}" alt="${product.name}" loading="lazy" />
+          </div>
+          <div class="product-body">
+            <div class="meta-row"><span>${product.collection}</span><span>${product.rating.toFixed(1)} ★</span></div>
+            <h3>${product.name}</h3>
+            <div class="product-footer">
+              <div class="price-wrap"><strong>${formatCurrency(product.price)}</strong><span class="old-price">${formatCurrency(product.oldPrice)}</span></div>
+              <div class="product-actions">
+                <button class="mini-btn" type="button" data-quick-view="${product.id}">↗</button>
+                <button class="mini-btn primary" type="button" data-add="${product.id}">Adicionar</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function setDetailProduct(productId) {
+      const product = products.find(item => item.id === Number(productId));
+      if (!product) return;
+      selectedProductId = product.id;
+      selectedColor = product.colors[0];
+      selectedSize = product.sizes[0];
+      detailQty = 1;
+      document.getElementById('detailMainImage').src = safeImage(product.images[0]);
+      document.getElementById('detailName').textContent = product.name;
+      document.getElementById('detailCrumbs').textContent = `Home / ${product.collection} / ${product.name}`;
+      document.getElementById('detailStars').textContent = starRating(product.rating);
+      document.getElementById('detailRatingText').textContent = `${product.rating.toFixed(1)} (${product.reviews} avaliações)`;
+      document.getElementById('detailPrice').textContent = formatCurrency(product.price);
+      document.getElementById('detailOldPrice').textContent = formatCurrency(product.oldPrice);
+      document.getElementById('detailDescription').textContent = product.description;
+      document.getElementById('detailLongDescription').textContent = product.longDescription;
+      document.getElementById('detailMeasures').textContent = product.measures;
+      document.getElementById('detailBullets').innerHTML = product.bullets.map(item => `<li>${item}</li>`).join('');
+      document.getElementById('detailQty').textContent = detailQty;
+      document.getElementById('selectedColorLabel').textContent = selectedColor;
+      document.getElementById('selectedSizeLabel').textContent = selectedSize;
+
+      const thumbContainer = document.getElementById('detailThumbs');
+      thumbContainer.innerHTML = product.images.map((image, index) => `
+        <button class="thumb ${index === 0 ? 'active' : ''}" type="button" data-thumb-index="${index}" aria-label="Imagem ${index + 1}">
+          <img src="${safeImage(image)}" alt="${product.name} - vista ${index + 1}" loading="lazy" />
+        </button>
+      `).join('');
+
+      const colors = document.getElementById('detailColors');
+      colors.innerHTML = product.colors.map(color => `
+        <button class="chip ${color === selectedColor ? 'active' : ''}" type="button" data-color="${color}">${color}</button>
+      `).join('');
+
+      const sizes = document.getElementById('detailSizes');
+      sizes.innerHTML = product.sizes.map(size => `
+        <button class="chip ${size === selectedSize ? 'active' : ''}" type="button" data-size="${size}">${size}</button>
+      `).join('');
+
+      const reviewList = document.getElementById('reviewList');
+      reviewList.innerHTML = product.reviewTexts.map(item => `
+        <article class="quote-card">
+          <div class="stars">★★★★★</div>
+          <p>“${item}”</p>
+          <div class="person"><strong>Cliente</strong><span>Verified</span></div>
+        </article>
+      `).join('');
+
+      const related = products.filter(item => item.id !== product.id).slice(0, 4);
+      document.getElementById('relatedGrid').innerHTML = related.map(item => `
+        <article class="product-card" data-id="${item.id}">
+          <div class="product-media">
+            <span class="product-chip">${item.badge}</span>
+            <img src="${safeImage(item.images[0])}" alt="${item.name}" loading="lazy" />
+          </div>
+          <div class="product-body">
+            <div class="meta-row"><span>${item.collection}</span><span>${item.rating.toFixed(1)} ★</span></div>
+            <h3>${item.name}</h3>
+            <div class="product-footer">
+              <div class="price-wrap"><strong>${formatCurrency(item.price)}</strong><span class="old-price">${formatCurrency(item.oldPrice)}</span></div>
+              <div class="product-actions">
+                <button class="mini-btn" type="button" data-quick-view="${item.id}">↗</button>
+                <button class="mini-btn primary" type="button" data-add="${item.id}">Adicionar</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function renderCartPage() {
+      const pageList = document.getElementById('cartPageItems');
+      const pageCount = document.getElementById('pageListCount');
+      if (!pageList) return;
+
+      if (!cart.length) {
+        pageList.innerHTML = '<div class="empty-cart-box">Seu carrinho está vazio. Adicione alguns itens para começar.</div>';
+        if (pageCount) pageCount.textContent = '0';
+      } else {
+        pageList.innerHTML = cart.map(item => {
+          const product = products.find(p => p.id === item.productId);
+          return `
+            <div class="cart-page-item">
+              <img src="${safeImage(product?.images[0])}" alt="${item.name}" />
+              <div>
+                <h4>${item.name}</h4>
+                <div class="meta" style="color:var(--muted); font-size:0.74rem; letter-spacing:0.08em; text-transform:uppercase;">${item.color} / ${item.size}</div>
+                <div class="line-total" style="margin-top:10px;">
+                  <div class="qty-inline" style="display:inline-flex; align-items:center; gap:8px; border:1px solid var(--line); border-radius:999px; padding:0 8px; min-height:36px;">
+                    <button type="button" data-cart-action="minus" data-id="${item.productId}" style="width:24px; height:24px; border:0; background:transparent; color:var(--ink); font-size:1.2rem;">−</button>
+                    <span>${item.qty}</span>
+                    <button type="button" data-cart-action="plus" data-id="${item.productId}" style="width:24px; height:24px; border:0; background:transparent; color:var(--ink); font-size:1.2rem;">+</button>
+                  </div>
+                </div>
+              </div>
+              <div class="cart-page-price">${formatCurrency(item.price * item.qty)}</div>
+            </div>
+          `;
+        }).join('');
+        if (pageCount) pageCount.textContent = String(cart.reduce((sum, item) => sum + item.qty, 0));
+      }
+
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const shipping = subtotal > 1200 ? 0 : 45;
+      const discount = discountApplied ? subtotal * 0.1 : 0;
+      const total = subtotal + shipping - discount;
+
+      const subtotalNode = document.getElementById('pageSubtotalValue');
+      const shippingNode = document.getElementById('pageShippingValue');
+      const discountNode = document.getElementById('pageDiscountValue');
+      const totalNode = document.getElementById('pageTotalValue');
+
+      if (subtotalNode) subtotalNode.textContent = formatCurrency(subtotal);
+      if (shippingNode) shippingNode.textContent = formatCurrency(shipping);
+      if (discountNode) discountNode.textContent = `- ${formatCurrency(discount)}`;
+      if (totalNode) totalNode.textContent = formatCurrency(total);
+    }
+
+    function updateCartUI() {
+      const cartCount = document.getElementById('cartCount');
+      const cartItems = document.getElementById('cartItems');
+      const cartPageItems = document.getElementById('cartPageItems');
+      if (cartCount) cartCount.textContent = cart.reduce((sum, item) => sum + item.qty, 0);
+
+      if (cartItems) {
+        if (!cart.length) {
+          cartItems.innerHTML = '<p style="color:var(--muted); padding: 18px 0;">Seu carrinho está vazio.</p>';
+        } else {
+          cartItems.innerHTML = cart.map(item => `
+            <div class="cart-item">
+              <img src="${safeImage(products.find(p => p.id === item.productId)?.images[0])}" alt="${item.name}" />
+              <div>
+                <h4>${item.name}</h4>
+                <div class="meta">${item.color} / ${item.size}</div>
+                <div class="line-total">
+                  <div class="qty-inline">
+                    <button type="button" data-cart-action="minus" data-id="${item.productId}">−</button>
+                    <span>${item.qty}</span>
+                    <button type="button" data-cart-action="plus" data-id="${item.productId}">+</button>
+                  </div>
+                </div>
+              </div>
+              <strong>${formatCurrency(item.price * item.qty)}</strong>
+            </div>
+          `).join('');
+        }
+      }
+
+      renderCartPage();
+
+      const subtotal = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const shipping = subtotal > 1200 ? 0 : 45;
+      const discount = discountApplied ? subtotal * 0.1 : 0;
+      const total = subtotal + shipping - discount;
+
+      document.getElementById('subtotalValue').textContent = formatCurrency(subtotal);
+      document.getElementById('shippingValue').textContent = formatCurrency(shipping);
+      document.getElementById('discountValue').textContent = `- ${formatCurrency(discount)}`;
+      document.getElementById('totalValue').textContent = formatCurrency(total);
+    }
+
+    function addToCart(productId, qty = 1, color = '', size = '') {
+      const product = products.find(item => item.id === Number(productId));
+      if (!product) return;
+      const effectiveColor = color || selectedColor || product.colors[0];
+      const effectiveSize = size || selectedSize || product.sizes[0];
+
+      const existing = cart.find(item => item.productId === Number(productId) && item.color === effectiveColor && item.size === effectiveSize);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        cart.push({ productId: product.id, name: product.name, price: product.price, qty, color: effectiveColor, size: effectiveSize });
+      }
+
+      updateCartUI();
+      showToast(`${product.name} adicionado ao carrinho`, 'success');
+      document.getElementById('cartDrawer')?.classList.add('open');
+    }
+
+    function renderAccountPanel() {
+      const panel = document.getElementById('accountPanel');
+      if (!panel) return;
+
+      if (activeAccountTab === 'resumo') {
+        panel.innerHTML = `
+          <div class="account-summary">
+            <div class="mini-box"><div class="label">Pedidos</div><strong>08</strong></div>
+            <div class="mini-box"><div class="label">Endereços</div><strong>03</strong></div>
+            <div class="mini-box"><div class="label">Saldo</div><strong>R$ 1.620</strong></div>
+          </div>
+          <div class="order-list">
+            <div class="order-item">
+              <div><strong>Pedido #P-2018</strong><br /><span class="muted">Entrega em 2 dias</span></div>
+              <span class="tag">Em trânsito</span>
+            </div>
+            <div class="order-item">
+              <div><strong>Pedido #P-1848</strong><br /><span class="muted">Última atualização há 4 dias</span></div>
+              <span class="tag">Entregue</span>
+            </div>
+          </div>
+        `;
+      }
+
+      if (activeAccountTab === 'pedidos') {
+        panel.innerHTML = `
+          <div class="order-list">
+            <div class="order-item">
+              <div><strong>#P-2018</strong><br /><span class="muted">Teclado Vanta Pro</span></div>
+              <div><strong>R$ 899,00</strong><br /><span class="tag">Em trânsito</span></div>
+            </div>
+            <div class="order-item">
+              <div><strong>#P-1848</strong><br /><span class="muted">Monitor Titan 27</span></div>
+              <div><strong>R$ 2.499,00</strong><br /><span class="tag">Entregue</span></div>
+            </div>
+          </div>
+        `;
+      }
+
+      if (activeAccountTab === 'enderecos') {
+        panel.innerHTML = `
+          <div class="address-list">
+            <div class="address-item">
+              <div><strong>Casa</strong><br /><span class="muted">Av. Brasil, 1200 — São Paulo/SP</span></div>
+              <span class="tag">Principal</span>
+            </div>
+            <div class="address-item">
+              <div><strong>Escritório</strong><br /><span class="muted">Rua das Flores, 42 — Curitiba/PR</span></div>
+              <span class="tag">Alternativo</span>
+            </div>
+          </div>
+        `;
+      }
+
+      if (activeAccountTab === 'lista') {
+        panel.innerHTML = `
+          <div class="wishlist-list">
+            <div class="wish-item">
+              <div><strong>Mouse Nova X</strong><br /><span class="muted">R$ 429,00</span></div>
+              <button class="btn ghost" type="button">Adicionar</button>
+            </div>
+            <div class="wish-item">
+              <div><strong>Headset Pulse 7</strong><br /><span class="muted">R$ 699,00</span></div>
+              <button class="btn ghost" type="button">Adicionar</button>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function renderCheckoutStages() {
+      const steps = document.querySelectorAll('.step');
+      const stepContent = document.querySelectorAll('.step-content');
+      const currentStep = Number(document.body.dataset.checkoutStep || 1);
+      steps.forEach((step, index) => step.classList.toggle('active', index + 1 === currentStep));
+      stepContent.forEach((panel, index) => panel.classList.toggle('active', index + 1 === currentStep));
+    }
+
+    function setupEvents() {
+      document.getElementById('searchInput')?.addEventListener('input', () => {
+        currentVisible = 8; renderProducts();
+      });
+
+      document.getElementById('filterPrice')?.addEventListener('change', () => { currentVisible = 8; renderProducts(); });
+      document.getElementById('filterColor')?.addEventListener('change', () => { currentVisible = 8; renderProducts(); });
+      document.getElementById('sortProducts')?.addEventListener('change', renderProducts);
+
+      document.getElementById('loadMoreBtn')?.addEventListener('click', () => {
+        currentVisible += 4;
+        renderProducts();
+      });
+
+      document.querySelectorAll('.tab-btn').forEach(button => {
+        button.addEventListener('click', () => {
+          currentCategory = button.dataset.category;
+          currentVisible = 8;
+          document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.toggle('active', btn === button));
+          renderProducts();
+        });
+      });
+
+      document.querySelectorAll('.cart-tab').forEach(button => {
+        button.addEventListener('click', () => {
+          const tabName = button.dataset.cartTab;
+          document.querySelectorAll('.cart-tab').forEach(tab => tab.classList.toggle('active', tab === button));
+          document.querySelectorAll('.cart-tab-panel').forEach(panel => panel.classList.toggle('active', panel.dataset.cartPanel === tabName));
+        });
+      });
+
+      document.getElementById('pageApplyCoupon')?.addEventListener('click', () => {
+        const value = document.getElementById('pageCouponInput')?.value.trim().toUpperCase();
+        discountApplied = value === 'PIXEL10';
+        updateCartUI();
+        showToast(discountApplied ? 'Cupom aplicado com sucesso!' : 'Cupom inválido.', discountApplied ? 'success' : 'error');
+      });
+
+      document.getElementById('pageCheckoutBtn')?.addEventListener('click', () => {
+        const checkout = document.getElementById('checkoutSection');
+        checkout?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.body.dataset.checkoutStep = '1';
+        renderCheckoutStages();
+      });
+
+      document.getElementById('confirmPaymentBtn')?.addEventListener('click', () => {
+        showToast('Pagamento confirmado com sucesso!', 'success');
+        document.body.dataset.checkoutStep = '4';
+        renderCheckoutStages();
+      });
+
+      document.addEventListener('click', (event) => {
+        const quickViewBtn = event.target.closest('[data-quick-view]');
+        if (quickViewBtn) {
+          const productId = quickViewBtn.dataset.quickView;
+          setDetailProduct(productId);
+          window.scrollTo({ top: document.querySelector('.detail-section').offsetTop - 80, behavior: 'smooth' });
+        }
+
+        const addBtn = event.target.closest('[data-add]');
+        if (addBtn) {
+          addToCart(addBtn.dataset.add, 1);
+        }
+
+        const cartAction = event.target.closest('[data-cart-action]');
+        if (cartAction) {
+          const item = cart.find(product => product.productId === Number(cartAction.dataset.id));
+          if (!item) return;
+          if (cartAction.dataset.cartAction === 'plus') item.qty += 1;
+          if (cartAction.dataset.cartAction === 'minus') item.qty -= 1;
+          if (item.qty <= 0) {
+            const index = cart.indexOf(item);
+            cart.splice(index, 1);
+          }
+          updateCartUI();
+        }
+
+        const thumbBtn = event.target.closest('[data-thumb-index]');
+        if (thumbBtn) {
+          const product = products.find(item => item.id === selectedProductId);
+          const index = Number(thumbBtn.dataset.thumbIndex);
+          if (!product) return;
+          document.getElementById('detailMainImage').src = safeImage(product.images[index]);
+          document.querySelectorAll('.thumb').forEach((button) => button.classList.toggle('active', button === thumbBtn));
+        }
+
+        const colorBtn = event.target.closest('[data-color]');
+        if (colorBtn) {
+          selectedColor = colorBtn.dataset.color;
+          document.getElementById('selectedColorLabel').textContent = selectedColor;
+          document.querySelectorAll('[data-color]').forEach(btn => btn.classList.toggle('active', btn === colorBtn));
+        }
+
+        const sizeBtn = event.target.closest('[data-size]');
+        if (sizeBtn) {
+          selectedSize = sizeBtn.dataset.size;
+          document.getElementById('selectedSizeLabel').textContent = selectedSize;
+          document.querySelectorAll('[data-size]').forEach(btn => btn.classList.toggle('active', btn === sizeBtn));
+        }
+      });
+
+      document.getElementById('qMinus')?.addEventListener('click', () => {
+        detailQty = Math.max(1, detailQty - 1);
+        document.getElementById('detailQty').textContent = detailQty;
+      });
+
+      document.getElementById('qPlus')?.addEventListener('click', () => {
+        detailQty += 1;
+        document.getElementById('detailQty').textContent = detailQty;
+      });
+
+      document.getElementById('addToCartDetail')?.addEventListener('click', () => {
+        addToCart(selectedProductId, detailQty, selectedColor, selectedSize);
+      });
+
+      document.getElementById('cartToggle')?.addEventListener('click', () => {
+        document.getElementById('cartDrawer')?.classList.toggle('open');
+      });
+
+      document.getElementById('closeCart')?.addEventListener('click', () => {
+        document.getElementById('cartDrawer')?.classList.remove('open');
+      });
+
+      document.getElementById('goCheckout')?.addEventListener('click', () => {
+        const checkout = document.getElementById('checkoutSection');
+        checkout?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.body.dataset.checkoutStep = '1';
+        renderCheckoutStages();
+      });
+
+      document.getElementById('applyCoupon')?.addEventListener('click', () => {
+        const value = document.getElementById('couponInput')?.value.trim().toUpperCase();
+        discountApplied = value === 'PIXEL10';
+        updateCartUI();
+        showToast(discountApplied ? 'Cupom aplicado com sucesso!' : 'Cupom inválido.', discountApplied ? 'success' : 'error');
+      });
+
+      document.querySelectorAll('.account-tab').forEach(button => {
+        button.addEventListener('click', () => {
+          activeAccountTab = button.dataset.account;
+          document.querySelectorAll('.account-tab').forEach(tab => tab.classList.toggle('active', tab === button));
+          renderAccountPanel();
+        });
+      });
+
+      document.querySelectorAll('.detail-tab').forEach(button => {
+        button.addEventListener('click', () => {
+          document.querySelectorAll('.detail-tab').forEach(tab => tab.classList.toggle('active', tab === button));
+          document.querySelectorAll('.detail-panel').forEach(panel => panel.classList.toggle('active', panel.id === button.dataset.panel));
+        });
+      });
+
+      document.getElementById('contactForm')?.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const name = document.getElementById('contactName').value.trim();
+        const email = document.getElementById('contactEmail').value.trim();
+        const subject = document.getElementById('contactSubject').value.trim();
+        const message = document.getElementById('contactMessage').value.trim();
+
+        if (!name || !email || !subject || !message) {
+          showToast('Preencha todos os campos do formulário antes de enviar.', 'error');
+          return;
+        }
+
+        showToast('Mensagem enviada com sucesso!', 'success');
+        event.target.reset();
+      });
+
+      document.getElementById('prevSlide')?.addEventListener('click', () => {
+        const slides = document.querySelectorAll('.campaign-slide');
+        activeSlide = activeSlide <= 0 ? slides.length - 1 : activeSlide - 1;
+        document.getElementById('carouselTrack').style.transform = `translateX(-${activeSlide * 100}%)`;
+      });
+
+      document.getElementById('nextSlide')?.addEventListener('click', () => {
+        const slides = document.querySelectorAll('.campaign-slide');
+        activeSlide = activeSlide >= slides.length - 1 ? 0 : activeSlide + 1;
+        document.getElementById('carouselTrack').style.transform = `translateX(-${activeSlide * 100}%)`;
+      });
+    }
+
+    function initializeCheckout() {
+      const checkoutMarkup = `
+        <section class="section checkout-area" id="checkoutSection">
+          <div class="container">
+            <div class="section-head">
+              <h2>Checkout</h2>
+              <span class="link">Pagamento seguro</span>
+            </div>
+            <div class="checkout-shell">
+              <div class="stepper" aria-label="Etapas do checkout">
+                <div class="step active">1. Dados</div>
+                <div class="step">2. Entrega</div>
+                <div class="step">3. Pagamento</div>
+                <div class="step">4. Confirmação</div>
+              </div>
+
+              <div class="step-content active" data-step="1">
+                <div class="checkout-grid">
+                  <div class="contact-form">
+                    <div class="field-grid">
+                      <div class="form-field"><label for="checkoutNome">Nome</label><input id="checkoutNome" type="text" /></div>
+                      <div class="form-field"><label for="checkoutSobrenome">Sobrenome</label><input id="checkoutSobrenome" type="text" /></div>
+                    </div>
+                    <div class="field-grid">
+                      <div class="form-field"><label for="checkoutEmail">E-mail</label><input id="checkoutEmail" type="email" /></div>
+                      <div class="form-field"><label for="checkoutTelefone">Telefone</label><input id="checkoutTelefone" type="tel" /></div>
+                    </div>
+                  </div>
+                  <aside class="checkout-summary">
+                    <h3 style="font-size: 2.1rem; margin-bottom:16px;">Resumo</h3>
+                    <div id="checkoutSummaryList"></div>
+                    <div class="summary-row total"><span>Total</span><strong id="checkoutTotal">R$ 0,00</strong></div>
+                  </aside>
+                </div>
+                <div class="checkout-actions">
+                  <button class="btn ghost" type="button">Voltar</button>
+                  <button class="btn primary" type="button" data-next-step="2">Continuar</button>
+                </div>
+              </div>
+
+              <div class="step-content" data-step="2">
+                <div class="contact-form">
+                  <div class="field-grid">
+                    <div class="form-field"><label for="checkoutEndereco">Endereço</label><input id="checkoutEndereco" type="text" placeholder="Rua, nº, complemento" /></div>
+                    <div class="form-field"><label for="checkoutBairro">Bairro</label><input id="checkoutBairro" type="text" /></div>
+                  </div>
+                  <div class="field-grid">
+                    <div class="form-field"><label for="checkoutCidade">Cidade</label><input id="checkoutCidade" type="text" /></div>
+                    <div class="form-field"><label for="checkoutCep">CEP</label><input id="checkoutCep" type="text" /></div>
+                  </div>
+                </div>
+                <div class="checkout-actions">
+                  <button class="btn ghost" type="button" data-next-step="1">Voltar</button>
+                  <button class="btn primary" type="button" data-next-step="3">Continuar</button>
+                </div>
+              </div>
+
+              <div class="step-content" data-step="3">
+                <div class="contact-form">
+                  <div class="form-field">
+                    <label for="checkoutPagamento">Forma de pagamento</label>
+                    <select id="checkoutPagamento">
+                      <option>Cartão de crédito</option>
+                      <option>Cartão de débito</option>
+                      <option>Pix</option>
+                      <option>Boleto</option>
+                    </select>
+                  </div>
+                  <div class="field-grid">
+                    <div class="form-field"><label for="checkoutNumero">Número do cartão</label><input id="checkoutNumero" type="text" placeholder="0000 0000 0000 0000" /></div>
+                    <div class="form-field"><label for="checkoutValidade">Validade</label><input id="checkoutValidade" type="text" placeholder="MM/AA" /></div>
+                  </div>
+                </div>
+                <div class="checkout-actions">
+                  <button class="btn ghost" type="button" data-next-step="2">Voltar</button>
+                  <button class="btn primary" type="button" data-next-step="4">Confirmar</button>
+                </div>
+              </div>
+
+              <div class="step-content" data-step="4">
+                <div class="contact-form">
+                  <h3 style="font-size: 2.4rem; margin-bottom: 12px;">Pedido confirmado</h3>
+                  <p style="color: var(--muted); margin-bottom:18px;">Seu pedido foi registrado com sucesso. A confirmação foi enviada para o seu e-mail.</p>
+                  <div class="summary-row"><span>Pedido</span><strong>#P-2026-004</strong></div>
+                  <div class="summary-row"><span>Entrega</span><strong>2 a 4 dias úteis</strong></div>
+                  <div class="summary-row"><span>Pagamento</span><strong>Cartão de crédito</strong></div>
+                  <div class="summary-row total"><span>Total</span><strong id="checkoutTotalFinal">R$ 0,00</strong></div>
+                </div>
+                <div class="checkout-actions">
+                  <button class="btn ghost" type="button">Voltar ao início</button>
+                  <button class="btn primary" type="button">Acompanhar pedido</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+
+      document.body.insertAdjacentHTML('beforeend', checkoutMarkup);
+
+      document.querySelectorAll('[data-next-step]').forEach(button => {
+        button.addEventListener('click', () => {
+          const next = Number(button.dataset.nextStep);
+          document.body.dataset.checkoutStep = next;
+          renderCheckoutStages();
+        });
+      });
+
+      const list = document.getElementById('checkoutSummaryList');
+      if (list) {
+        list.innerHTML = cart.length ? cart.map(item => `
+          <div class="mini-item"><span>${item.name} x${item.qty}</span><strong>${formatCurrency(item.price * item.qty)}</strong></div>
+        `).join('') : '<p class="muted">Carrinho vazio</p>';
+      }
+
+      const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+      const totalValue = document.getElementById('checkoutTotal');
+      const finalValue = document.getElementById('checkoutTotalFinal');
+      if (totalValue) totalValue.textContent = formatCurrency(total);
+      if (finalValue) finalValue.textContent = formatCurrency(total);
+    }
+
+    function init() {
+      renderNewArrivals();
+      renderProducts();
+      renderOfferGrid();
+      renderAccountPanel();
+      updateCartUI();
+      setDetailProduct(selectedProductId);
+      setupEvents();
+      initializeCheckout();
+      renderCheckoutStages();
+      document.getElementById('carouselTrack').style.transform = 'translateX(0%)';
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

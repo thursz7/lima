@@ -24,6 +24,55 @@
         <img src="https://www.comfy.com.br/media/Sem_T_tulo-1.webp" alt="Cadeira Ergonômica" width="175">
     </ul>
     <hr>
+                <h2>Dados do Cliente</h2>
+    <fieldset>
+
+            <p>
+                <label for="nome">Nome completo:*</label><br>
+                <input type="text" id="nome" name="nome"
+                    placeholder="Digite seu nome" required>
+            </p>
+
+            <p>
+                <label for="email">E-mail:*</label><br>
+                <input type="email" id="email" name="email"
+                    placeholder="seuemail@exemplo.com" required>
+            </p>
+
+            <p>
+                <label for="telefone">Telefone:</label><br>
+                <input type="tel" id="telefone" name="telefone"
+                    placeholder="(00) 00000-0000">
+            </p>
+        </fieldset>
+
+        <br>
+    
+    <h2>Configuração de Hardware</h2>
+
+    <hr>
+
+    <!-- Configuração de Hardware -->
+     <fieldset>
+        <legend>Escolha a placa de vídeo principal</legend>
+        <select name="gpu" id="gpu">
+            <option value="gtx1660">NVIDIA GeForce GTX 1660 Ti</option>
+            <option value="rtx3060">NVIDIA GeForce RTX 3060</option>
+            <option value="gtx1650">NVIDIA GeForce GTX 1650</option>
+        </select>
+        <p>
+            <strong>Objetivo de qualquer coisa</strong>
+            <input type="radio" name="objetivo" id="jogos" value="jogos" checked>
+            <label for="objetivo">Objetivo do computador</label></br>
+
+            <input type="radio" name="streaming" id="streaming" value="streaming">
+            <label for="objetivo">Live criação</label></br>
+
+            <input type="radio" name="objetivo" id="trabalho" value="trabalho">
+            <label for="objetivo">edição de vídeo</label></br>
+        </p>
+     </fieldset>
+     <hr>
     <h4>Preços</h4>
     <ul>
         <li>Teclado mecânico: R$ 299,99</li>
@@ -31,6 +80,23 @@
         <li>Headset de alta qualidade: R$ 199,99</li>
         <li>Cadeira ergonômica: R$ 499,99</li>
     </ul>
+    <hr>
+    <!-- Fieldset pra escolher qual produto comprar, quantidade e adicionar ao carrinho -->
+    <fieldset>
+        <legend>Escolha o produto e a quantidade</legend>
+        <label for="produto">Produto:</label>
+        <select name="produto" id="produto">
+            <option value="teclado">Teclado mecânico</option>
+            <option value="mouse">Mouse gamer</option>
+            <option value="headset">Headset de alta qualidade</option>
+            <option value="cadeira">Cadeira ergonômica</option>
+        </select>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" name="quantidade" min="1" value="1">
+
+        <button type="button" onclick="adicionarAoCarrinho()">Adicionar ao Carrinho</button>
+    </fieldset>
     <hr>
     <p>Visite nossa loja para conferir os produtos disponíveis!</p>
     
